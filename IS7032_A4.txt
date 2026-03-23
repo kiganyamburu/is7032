@@ -1,0 +1,20 @@
+IS7032-Assignment Instructions
+
+You will be taking an already validated information-preserving logical model and converting it to DDL/SQLcodeusingsyntaxforOracle-notethatthiswillNOTbetheEXACTsyntaxasthebookuses. To test your code and complete this assignment, you will need to use Oracle or PostGres.
+Section 1: Create and list statements using SQL syntax to create the tables described below. Include integrity constraints and joins necessary to replicate the entire information-preserving logical model below.YouneedtowriteyourownSQLcode(donotmakeyourtablesusingtheGUI).Show yourSQL codeforthetablesyouarecreating.Ifyoumakeanyalterationstothetablesbelowmakesuretonote them in a set of text comments to accompany the tables.
+Section2:Showascreenshotof OracleSQLDeveloperorPostGresshowingyourrefreshedlistoftables after running your SQL code to create your new database. It will look similar to the screenshot appended to the bottom of this document.
+Section 3: Insert at least 5 records into a table of your choice. Show a screenshot of Oracle SQL Developer or PostGres displaying the results of a "select * from 	"statementthatqueriestheentire contents of that table.
+Section4:Describewhatyouwoulddotoensureamanagerisassignedtoaninternalprojecthe/she also manages.
+SemanticIntegrityConstraints:
+ConstraintEMPLOYEE.Emp_GenderIN("M","F","O") Constraint ASSIGNMENT.Asg_hours > 1
+Amanagerwillbeassignedtoanyinternalprojectthathe/shealsomanages
+
+
+
+
+
+
+
+
+
+ExampleofOracleSQL DeveloperScreenshot

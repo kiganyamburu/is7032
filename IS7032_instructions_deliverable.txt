@@ -1,0 +1,208 @@
+IS7032 – Logical Model Validation Deliverable (for instructions.txt)
+
+Student: ____________________
+Date: ______________________
+
+============================================================
+SECTION 1: VALIDATED DIRECTED-ARC MODEL
+============================================================
+
+1) Base relation and subtypes
+
+- EMPLOYEE is a supertype.
+- MANAGER is a subtype of EMPLOYEE.
+- PROJECT is a supertype.
+- INTERNAL_PROJECT and EXTERNAL_PROJECT are disjoint subtypes of PROJECT.
+
+Directed arcs (validated):
+
+EMPLOYEE(emp_id)  --->  MANAGER(mng_emp_id)
+PROJECT(prj_num)  --->  INTERNAL_PROJECT(int_prj_num)
+PROJECT(prj_num)  --->  EXTERNAL_PROJECT(ext_prj_num)
+
+2) Relationship-derived arcs
+
+INTERNAL_PROJECT(int_prj_num) ---> ASSIGNMENT(asg_int_prj_num)
+EMPLOYEE(emp_id)              ---> ASSIGNMENT(asg_emp_id)
+MANAGER(mng_emp_id)           ---> INTERNAL_PROJECT(int_mng_emp_id)
+VENDOR(ven_name)              ---> EXTERNAL_PROJECT(ext_ven_name)
+
+3) Directed-arc design issues found and validation decisions
+
+Issue A: Repeating/composite name and address structures can hide dependencies.
+Validation decision: flatten into atomic attributes in each relation:
+- employee: emp_first, emp_middle, emp_last
+- vendor: ven_first, ven_middle, ven_last, ven_street, ven_city, ven_state, ven_zip
+
+Issue B: Supertype/subtype enforcement can be lost if subtype tables are not PK=FK.
+Validation decision: use identical subtype key as PK and FK to supertype:
+- manager.mng_emp_id PK/FK -> employee.emp_id
+- internal_project.int_prj_num PK/FK -> project.prj_num
+- external_project.ext_prj_num PK/FK -> project.prj_num
+
+Issue C: Assignment cardinality can allow invalid hours.
+Validation decision: semantic constraint on assignment hours > 1.
+
+Issue D: Business rule “manager is assigned to internal project he/she manages” is not guaranteed by FK-only design.
+Validation decision: enforce with a procedural rule (trigger/assertion/business transaction rule).
+
+4) Assumptions added to semantic integrity constraints
+
+- Manager is an EMPLOYEE subtype (every manager must be an employee).
+- Internal and External project subtypes are disjoint.
+- ASSIGNMENT references only INTERNAL_PROJECT (not EXTERNAL_PROJECT).
+- VENDOR is identified by ven_name in this model version.
+
+
+============================================================
+SECTION 2: DEPENDENCY DIAGRAMS (VALIDATED)
+============================================================
+
+Notation:
+- PK attributes are marked [PK].
+- Partial and transitive dependency checks are stated under each relation.
+
+A) EMPLOYEE
+EMPLOYEE([PK] emp_id, emp_first, emp_middle, emp_last, emp_gender, emp_salary)
+FDs:
+- emp_id -> emp_first, emp_middle, emp_last, emp_gender, emp_salary
+Normalization note:
+- No partial dependency (single-attribute PK).
+- No transitive dependency among non-key attributes in the validated model.
+
+B) MANAGER
+MANAGER([PK] mng_emp_id, mng_bonus)
+FDs:
+- mng_emp_id -> mng_bonus
+Normalization note:
+- BCNF/3NF compliant in validated form.
+
+C) VENDOR
+VENDOR([PK] ven_name, ven_street, ven_city, ven_state, ven_zip, ven_first, ven_middle, ven_last)
+FDs:
+- ven_name -> ven_street, ven_city, ven_state, ven_zip, ven_first, ven_middle, ven_last
+Normalization note:
+- 3NF compliant based on assumed natural key ven_name.
+- If business uses duplicate vendor names, replace with surrogate vendor_id.
+
+D) PROJECT
+PROJECT([PK] prj_num, prj_desc, prj_startdt, prj_budget, prj_actcst)
+FDs:
+- prj_num -> prj_desc, prj_startdt, prj_budget, prj_actcst
+Normalization note:
+- 3NF compliant.
+
+E) EXTERNAL_PROJECT
+EXTERNAL_PROJECT([PK] ext_prj_num, ext_contcost, ext_ven_name)
+FDs:
+- ext_prj_num -> ext_contcost, ext_ven_name
+Normalization note:
+- 3NF compliant; ext_ven_name is FK to vendor.
+
+F) INTERNAL_PROJECT
+INTERNAL_PROJECT([PK] int_prj_num, int_rating, int_mng_emp_id)
+FDs:
+- int_prj_num -> int_rating, int_mng_emp_id
+Normalization note:
+- 3NF compliant; int_mng_emp_id is FK to manager.
+
+G) ASSIGNMENT
+ASSIGNMENT([PK] asg_int_prj_num, [PK] asg_emp_id, asg_hours)
+FDs:
+- (asg_int_prj_num, asg_emp_id) -> asg_hours
+Normalization note:
+- No partial dependency (asg_hours depends on full composite key).
+- 3NF compliant.
+
+Potential problems inferred (and fixes)
+- Problem 1: Constraint typo in source (“Assignment.Gender”) is ambiguous.
+  Fix: apply gender constraint to EMPLOYEE.emp_gender IN ('M','F','O').
+- Problem 2: Business rule requiring manager participation cannot be fully expressed by static FK constraints.
+  Fix: implement trigger/transaction rule to auto-insert/validate assignment row.
+
+
+============================================================
+SECTION 3: VALIDATED INFORMATION-PRESERVING LOGICAL MODEL
+============================================================
+
+Validated relation set (final):
+
+EMPLOYEE(
+  emp_id PK,
+  emp_first,
+  emp_middle,
+  emp_last,
+  emp_gender CHECK IN ('M','F','O'),
+  emp_salary
+)
+
+MANAGER(
+  mng_emp_id PK FK -> EMPLOYEE(emp_id),
+  mng_bonus
+)
+
+VENDOR(
+  ven_name PK,
+  ven_street,
+  ven_city,
+  ven_state,
+  ven_zip,
+  ven_first,
+  ven_middle,
+  ven_last
+)
+
+PROJECT(
+  prj_num PK,
+  prj_desc,
+  prj_startdt,
+  prj_budget,
+  prj_actcst
+)
+
+EXTERNAL_PROJECT(
+  ext_prj_num PK FK -> PROJECT(prj_num),
+  ext_contcost,
+  ext_ven_name FK -> VENDOR(ven_name)
+)
+
+INTERNAL_PROJECT(
+  int_prj_num PK FK -> PROJECT(prj_num),
+  int_rating,
+  int_mng_emp_id FK -> MANAGER(mng_emp_id)
+)
+
+ASSIGNMENT(
+  asg_int_prj_num PK FK -> INTERNAL_PROJECT(int_prj_num),
+  asg_emp_id PK FK -> EMPLOYEE(emp_id),
+  asg_hours CHECK > 1
+)
+
+Information-preserving rationale
+- All original ER entities are represented by relations.
+- Subtype/supertype semantics are preserved with PK=FK subtype pattern.
+- Relationship semantics are preserved via foreign keys and associative relation ASSIGNMENT.
+- Business rule constraints are preserved via CHECK constraints + procedural enforcement for manager assignment rule.
+
+
+============================================================
+SEMANTIC INTEGRITY CONSTRAINTS (FINAL LIST)
+============================================================
+
+1) EMPLOYEE.emp_gender IN ('M','F','O')
+2) ASSIGNMENT.asg_hours > 1
+3) A manager will be assigned to any internal project that he/she also manages.
+4) Every MANAGER must exist in EMPLOYEE.
+5) Every INTERNAL_PROJECT and EXTERNAL_PROJECT row must correspond to an existing PROJECT row.
+
+
+============================================================
+APPENDIX: WHAT TO ATTACH IN YOUR SUBMISSION
+============================================================
+
+- Screenshot/image of your validated directed-arc model.
+- Screenshot/image of dependency diagrams for validated model.
+- Final validated information-preserving logical model diagram.
+- (Optional, if instructor allows) SQL DDL implementation script as supporting artifact.
+
+End of deliverable.

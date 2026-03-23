@@ -1,0 +1,34 @@
+b. Assignment Instructions
+
+You will be taking an already completed ER model and creating and validating logical models. All ER 
+models will have some problems - some will be fairly obvious while others are more subtle. You will be 
+making 3 types of logical models and applying what we have learned about normalization and logical 
+modeling to validate/redesign the database. The 3 logical models, the directed-arc model, the 
+dependency diagram, and the information-preserving logical model are sequential and each part 
+informs you about different potential issues within the database design.
+
+You will use the design-specific ER model below to complete your 3 logical models. You will need to 
+address any significant issues in your logical model designs (by changing the model). If you must make 
+any assumptions in the validation process, add the assumptions to the list of semantic integrity 
+constraints.
+
+Section 1: Create a directed-arc model of the model described below. Describe any logical design 
+problems you can infer from the directed-arc model. If you need to make changes to the directed-arc
+model, you need to only show your validated model. List any important assumptions about business 
+rules in the list of semantic integrity constraints.
+
+Section 2: Create a dependency diagram of the model from Section 1. Describe any logical design 
+problems you can infer from the directed-arc model. After you list and describe any potential problems
+inferred from the dependency diagrams; make the changes necessary to validate your model and
+provide the dependency diagrams for your validated model.
+
+Section 3: Create a validated information-preserving logical model using the ER model below combined 
+with any improvements suggested in your validation process described above. 
+
+Semantic Integrity Constraints
+
+A manager will be assigned to any internal project that he/she also manages
+
+Constraint Assignment.Gender IN(“M”,“F”,”O”)
+
+Constraint Asignment.Hours > 1

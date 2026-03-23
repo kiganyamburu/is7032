@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Part B Figure Pack</title>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "default" });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      .mermaid {
+        border: 1px solid #ddd;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Figure 1: Validated Directed-Arc Model</h2>
+    <pre class="mermaid">
+flowchart LR
+    EMP[EMPLOYEE]
+    MGR[MANAGER]
+    PRJ[PROJECT]
+    IPRJ[INTERNAL_PROJECT]
+    XPRJ[EXTERNAL_PROJECT]
+    VEN[VENDOR]
+    ASG[ASSIGNMENT]
+
+    EMP --> MGR
+    PRJ --> IPRJ
+    PRJ --> XPRJ
+    MGR --> IPRJ
+    VEN --> XPRJ
+    IPRJ --> ASG
+    EMP --> ASG
+    </pre>
+
+    <h2>Figure 2: Validated Dependency Diagrams</h2>
+    <pre class="mermaid">
+flowchart LR
+    A[EMPLOYEE: emp_id -> non-keys]
+    B[MANAGER: mng_emp_id -> mng_bonus]
+    C[PROJECT: prj_num -> non-keys]
+    D[INTERNAL_PROJECT: int_prj_num -> int_rating, int_mng_emp_id]
+    E[EXTERNAL_PROJECT: ext_prj_num -> ext_contcost, ext_ven_name]
+    F[VENDOR: ven_name -> non-keys]
+    G[ASSIGNMENT: (asg_int_prj_num, asg_emp_id) -> asg_hours]
+    </pre>
+
+    <h2>Figure 3: Validated Information-Preserving Logical Model</h2>
+    <pre class="mermaid">
+erDiagram
+    EMPLOYEE ||--|| MANAGER : subtype
+    PROJECT ||--|| INTERNAL_PROJECT : subtype
+    PROJECT ||--|| EXTERNAL_PROJECT : subtype
+    MANAGER ||--o{ INTERNAL_PROJECT : manages
+    VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
+    INTERNAL_PROJECT ||--o{ ASSIGNMENT : has
+    EMPLOYEE ||--o{ ASSIGNMENT : assigned_to
+    </pre>
+  </body>
+</html>

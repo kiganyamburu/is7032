@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Figure 3 - Validated Information-Preserving Logical Model</title>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "default" });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      .mermaid {
+        border: 1px solid #ddd;
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Figure 3: Validated Information-Preserving Logical Model</h2>
+    <pre class="mermaid">
+erDiagram
+    EMPLOYEE {
+        NUMERIC emp_id PK
+        VARCHAR emp_first
+        VARCHAR emp_middle
+        VARCHAR emp_last
+        CHAR emp_gender
+        NUMERIC emp_salary
+    }
+
+    MANAGER {
+        NUMERIC mng_emp_id PK FK
+        NUMERIC mng_bonus
+    }
+
+    PROJECT {
+        NUMERIC prj_num PK
+        VARCHAR prj_desc
+        DATE prj_startdt
+        NUMERIC prj_budget
+        NUMERIC prj_actcst
+    }
+
+    INTERNAL_PROJECT {
+        NUMERIC int_prj_num PK FK
+        CHAR int_rating
+        NUMERIC int_mng_emp_id FK
+    }
+
+    EXTERNAL_PROJECT {
+        NUMERIC ext_prj_num PK FK
+        NUMERIC ext_contcost
+        VARCHAR ext_ven_name FK
+    }
+
+    VENDOR {
+        VARCHAR ven_name PK
+        VARCHAR ven_street
+        VARCHAR ven_city
+        CHAR ven_state
+        CHAR ven_zip
+        VARCHAR ven_first
+        VARCHAR ven_middle
+        VARCHAR ven_last
+    }
+
+    ASSIGNMENT {
+        NUMERIC asg_int_prj_num PK FK
+        NUMERIC asg_emp_id PK FK
+        NUMERIC asg_hours
+    }
+
+    EMPLOYEE ||--|| MANAGER : subtype
+    PROJECT ||--|| INTERNAL_PROJECT : subtype
+    PROJECT ||--|| EXTERNAL_PROJECT : subtype
+    MANAGER ||--o{ INTERNAL_PROJECT : manages
+    VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
+    INTERNAL_PROJECT ||--o{ ASSIGNMENT : has
+    EMPLOYEE ||--o{ ASSIGNMENT : assigned_to
+    </pre>
+  </body>
+</html>

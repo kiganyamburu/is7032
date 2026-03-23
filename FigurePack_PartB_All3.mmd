@@ -1,0 +1,50 @@
+flowchart TB
+
+  subgraph F1[Figure 1: Validated Directed-Arc Model]
+    direction LR
+    F1_EMP[EMPLOYEE]
+    F1_MGR[MANAGER]
+    F1_PRJ[PROJECT]
+    F1_IP[INTERNAL_PROJECT]
+    F1_EP[EXTERNAL_PROJECT]
+    F1_VEN[VENDOR]
+    F1_ASG[ASSIGNMENT]
+
+    F1_EMP -->|Subtype arc| F1_MGR
+    F1_PRJ -->|Subtype arc| F1_IP
+    F1_PRJ -->|Subtype arc| F1_EP
+    F1_MGR -->|manages| F1_IP
+    F1_VEN -->|hired_for| F1_EP
+    F1_IP -->|assigned_on| F1_ASG
+    F1_EMP -->|assigned_employee| F1_ASG
+  end
+
+  subgraph F2[Figure 2: Validated Dependency Diagrams]
+    direction TB
+    D1["EMPLOYEE: emp_id -> non-keys"]
+    D2["MANAGER: mng_emp_id -> mng_bonus"]
+    D3["PROJECT: prj_num -> non-keys"]
+    D4["INTERNAL_PROJECT: int_prj_num -> int_rating, int_mng_emp_id"]
+    D5["EXTERNAL_PROJECT: ext_prj_num -> ext_contcost, ext_ven_name"]
+    D6["VENDOR: ven_name -> non-keys"]
+    D7["ASSIGNMENT: (asg_int_prj_num, asg_emp_id) -> asg_hours"]
+  end
+
+  subgraph F3[Figure 3: Validated Information-Preserving Logical Model]
+    direction LR
+    L_EMP[EMPLOYEE]
+    L_MGR[MANAGER]
+    L_PRJ[PROJECT]
+    L_IP[INTERNAL_PROJECT]
+    L_EP[EXTERNAL_PROJECT]
+    L_VEN[VENDOR]
+    L_ASG[ASSIGNMENT]
+
+    L_EMP --- L_MGR
+    L_PRJ --- L_IP
+    L_PRJ --- L_EP
+    L_MGR --> L_IP
+    L_VEN --> L_EP
+    L_IP --> L_ASG
+    L_EMP --> L_ASG
+  end

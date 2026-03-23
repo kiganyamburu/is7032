@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Figure 1 - Validated Directed-Arc Model</title>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "default" });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      .mermaid {
+        border: 1px solid #ddd;
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Figure 1: Validated Directed-Arc Model</h2>
+    <pre class="mermaid">
+flowchart LR
+    EMP[EMPLOYEE\n(emp_id PK, emp_first, emp_middle, emp_last, emp_gender, emp_salary)]
+    MGR[MANAGER\n(mng_emp_id PK/FK, mng_bonus)]
+    PRJ[PROJECT\n(prj_num PK, prj_desc, prj_startdt, prj_budget, prj_actcst)]
+    IPRJ[INTERNAL_PROJECT\n(int_prj_num PK/FK, int_rating, int_mng_emp_id FK)]
+    XPRJ[EXTERNAL_PROJECT\n(ext_prj_num PK/FK, ext_contcost, ext_ven_name FK)]
+    VEN[VENDOR\n(ven_name PK, ven_street, ven_city, ven_state, ven_zip, ven_first, ven_middle, ven_last)]
+    ASG[ASSIGNMENT\n(asg_int_prj_num PK/FK, asg_emp_id PK/FK, asg_hours)]
+
+    EMP -->|Subtype arc| MGR
+    PRJ -->|Subtype arc| IPRJ
+    PRJ -->|Subtype arc| XPRJ
+    MGR -->|manages| IPRJ
+    VEN -->|hired_for| XPRJ
+    IPRJ -->|assigned_on| ASG
+    EMP -->|assigned_employee| ASG
+    </pre>
+  </body>
+</html>

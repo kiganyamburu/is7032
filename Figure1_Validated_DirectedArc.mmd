@@ -1,0 +1,16 @@
+flowchart LR
+    EMP["EMPLOYEE"]
+    MGR["MANAGER"]
+    PRJ["PROJECT"]
+    IPRJ["INTERNAL_PROJECT"]
+    XPRJ["EXTERNAL_PROJECT"]
+    VEN["VENDOR"]
+    ASG["ASSIGNMENT"]
+
+    EMP -->|Subtype arc| MGR
+    PRJ -->|Subtype arc| IPRJ
+    PRJ -->|Subtype arc| XPRJ
+    MGR -->|manages| IPRJ
+    VEN -->|hired_for| XPRJ
+    IPRJ -->|assigned_on| ASG
+    EMP -->|assigned_employee| ASG

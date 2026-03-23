@@ -1,0 +1,61 @@
+erDiagram
+    EMPLOYEE {
+        NUMERIC emp_id PK
+        VARCHAR emp_first
+        VARCHAR emp_middle
+        VARCHAR emp_last
+        CHAR emp_gender
+        NUMERIC emp_salary
+    }
+
+    MANAGER {
+        NUMERIC mng_emp_id PK
+        NUMERIC mng_bonus
+    }
+
+    PROJECT {
+        NUMERIC prj_num PK
+        VARCHAR prj_desc
+        DATE prj_startdt
+        NUMERIC prj_budget
+        NUMERIC prj_actcst
+    }
+
+    INTERNAL_PROJECT {
+        NUMERIC int_prj_num PK
+        CHAR int_rating
+        NUMERIC int_mng_emp_id
+    }
+
+    EXTERNAL_PROJECT {
+        NUMERIC ext_prj_num PK
+        NUMERIC ext_contcost
+        VARCHAR ext_ven_name
+    }
+
+    VENDOR {
+        VARCHAR ven_name PK
+        VARCHAR ven_street
+        VARCHAR ven_city
+        CHAR ven_state
+        CHAR ven_zip
+        VARCHAR ven_first
+        VARCHAR ven_middle
+        VARCHAR ven_last
+    }
+
+    ASSIGNMENT {
+        NUMERIC asg_int_prj_num PK
+        NUMERIC asg_emp_id PK
+        NUMERIC asg_hours
+    }
+
+    EMPLOYEE ||--|| MANAGER : "subtype"
+    PROJECT ||--|| INTERNAL_PROJECT : "subtype"
+    PROJECT ||--|| EXTERNAL_PROJECT : "subtype"
+
+    MANAGER ||--o{ INTERNAL_PROJECT : "manages"
+    VENDOR ||--o{ EXTERNAL_PROJECT : "hired_for"
+
+    INTERNAL_PROJECT ||--o{ ASSIGNMENT : "has"
+    EMPLOYEE ||--o{ ASSIGNMENT : "assigned_to"

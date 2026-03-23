@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Figure 2 - Validated Dependency Diagrams</title>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "default" });
+    </script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 24px;
+      }
+      .mermaid {
+        border: 1px solid #ddd;
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Figure 2: Validated Dependency Diagrams</h2>
+    <pre class="mermaid">
+flowchart TB
+  subgraph EMPLOYEE
+    EPK[emp_id (PK)] --> E1[emp_first]
+    EPK --> E2[emp_middle]
+    EPK --> E3[emp_last]
+    EPK --> E4[emp_gender]
+    EPK --> E5[emp_salary]
+  end
+
+  subgraph MANAGER
+    MPK[mng_emp_id (PK)] --> M1[mng_bonus]
+  end
+
+  subgraph PROJECT
+    PPK[prj_num (PK)] --> P1[prj_desc]
+    PPK --> P2[prj_startdt]
+    PPK --> P3[prj_budget]
+    PPK --> P4[prj_actcst]
+  end
+
+  subgraph INTERNAL_PROJECT
+    IPK[int_prj_num (PK)] --> I1[int_rating]
+    IPK --> I2[int_mng_emp_id (FK)]
+  end
+
+  subgraph EXTERNAL_PROJECT
+    XPK[ext_prj_num (PK)] --> X1[ext_contcost]
+    XPK --> X2[ext_ven_name (FK)]
+  end
+
+  subgraph VENDOR
+    VPK[ven_name (PK)] --> V1[ven_street]
+    VPK --> V2[ven_city]
+    VPK --> V3[ven_state]
+    VPK --> V4[ven_zip]
+    VPK --> V5[ven_first]
+    VPK --> V6[ven_middle]
+    VPK --> V7[ven_last]
+  end
+
+  subgraph ASSIGNMENT
+    AKEY[(asg_int_prj_num, asg_emp_id) PK] --> A1[asg_hours]
+  end
+    </pre>
+  </body>
+</html>
