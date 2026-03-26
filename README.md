@@ -62,3 +62,4 @@ The work covers two connected parts:
 - If LMS/instructor instructions differ from local checklist text, follow the instructor/LMS requirements first.
 - Keep file names unchanged when submitting unless your instructor asks otherwise.
 - Keep file names unchanged when submitting unless your instructor asks otherwise.
+- Keep file names unchanged when submitting unless your instructor asks otherwise.
