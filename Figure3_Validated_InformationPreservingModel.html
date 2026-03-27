@@ -23,59 +23,59 @@
     <pre class="mermaid">
 erDiagram
     EMPLOYEE {
-        NUMERIC emp_id PK
-        VARCHAR emp_first
-        VARCHAR emp_middle
-        VARCHAR emp_last
-        CHAR emp_gender
-        NUMERIC emp_salary
+      N(6) emp_id PK
+      A(20) emp_first
+      A(20) emp_middle
+      A(20) emp_last
+      A(1) emp_gender
+      N(2) emp_salary
     }
 
     MANAGER {
-        NUMERIC mng_emp_id PK FK
-        NUMERIC mng_bonus
+      N(6) mng_emp_id PK FK
+      N(2) mng_bonus
     }
 
     PROJECT {
-        NUMERIC prj_num PK
-        VARCHAR prj_desc
-        DATE prj_startdt
-        NUMERIC prj_budget
-        NUMERIC prj_actcst
+      N(6) prj_num PK
+      A(40) prj_desc
+      A(10) prj_startdt
+      N(2) prj_budget
+      N(2) prj_actcst
     }
 
     INTERNAL_PROJECT {
-        NUMERIC int_prj_num PK FK
-        CHAR int_rating
-        NUMERIC int_mng_emp_id FK
+      N(6) int_prj_num PK FK
+      A(1) int_rating
+      N(6) int_mng_emp_id FK
     }
 
     EXTERNAL_PROJECT {
-        NUMERIC ext_prj_num PK FK
-        NUMERIC ext_contcost
-        VARCHAR ext_ven_name FK
+      N(6) ext_prj_num PK FK
+      N(2) ext_contcost
+      A(20) ext_ven_name FK
     }
 
     VENDOR {
-        VARCHAR ven_name PK
-        VARCHAR ven_street
-        VARCHAR ven_city
-        CHAR ven_state
-        CHAR ven_zip
-        VARCHAR ven_first
-        VARCHAR ven_middle
-        VARCHAR ven_last
+      A(20) ven_name PK
+      A(40) ven_street
+      A(20) ven_city
+      A(2) ven_state
+      A(5) ven_zip
+      A(20) ven_first
+      A(20) ven_middle
+      A(20) ven_last
     }
 
     ASSIGNMENT {
-        NUMERIC asg_int_prj_num PK FK
-        NUMERIC asg_emp_id PK FK
-        NUMERIC asg_hours
+      N(6) asg_int_prj_num PK FK
+      N(6) asg_emp_id PK FK
+      N(1) asg_hours
     }
 
-    EMPLOYEE ||--|| MANAGER : subtype
-    PROJECT ||--|| INTERNAL_PROJECT : subtype
-    PROJECT ||--|| EXTERNAL_PROJECT : subtype
+    EMPLOYEE ||--|| MANAGER : superclass -> subclass
+    PROJECT ||--|| INTERNAL_PROJECT : superclass -> subclass
+    PROJECT ||--|| EXTERNAL_PROJECT : superclass -> subclass
     MANAGER ||--o{ INTERNAL_PROJECT : manages
     VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
     INTERNAL_PROJECT ||--o{ ASSIGNMENT : has

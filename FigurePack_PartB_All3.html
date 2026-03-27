@@ -55,13 +55,64 @@ flowchart LR
     <h2>Figure 3: Validated Information-Preserving Logical Model</h2>
     <pre class="mermaid">
 erDiagram
-    EMPLOYEE ||--|| MANAGER : subtype
-    PROJECT ||--|| INTERNAL_PROJECT : subtype
-    PROJECT ||--|| EXTERNAL_PROJECT : subtype
-    MANAGER ||--o{ INTERNAL_PROJECT : manages
-    VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
-    INTERNAL_PROJECT ||--o{ ASSIGNMENT : has
-    EMPLOYEE ||--o{ ASSIGNMENT : assigned_to
+  EMPLOYEE {
+    N(6) emp_id PK
+    A(20) emp_first
+    A(20) emp_middle
+    A(20) emp_last
+    A(1) emp_gender
+    N(2) emp_salary
+  }
+
+  MANAGER {
+    N(6) mng_emp_id PK FK
+    N(2) mng_bonus
+  }
+
+  PROJECT {
+    N(6) prj_num PK
+    A(40) prj_desc
+    A(10) prj_startdt
+    N(2) prj_budget
+    N(2) prj_actcst
+  }
+
+  INTERNAL_PROJECT {
+    N(6) int_prj_num PK FK
+    A(1) int_rating
+    N(6) int_mng_emp_id FK
+  }
+
+  EXTERNAL_PROJECT {
+    N(6) ext_prj_num PK FK
+    N(2) ext_contcost
+    A(20) ext_ven_name FK
+  }
+
+  VENDOR {
+    A(20) ven_name PK
+    A(40) ven_street
+    A(20) ven_city
+    A(2) ven_state
+    A(5) ven_zip
+    A(20) ven_first
+    A(20) ven_middle
+    A(20) ven_last
+  }
+
+  ASSIGNMENT {
+    N(6) asg_int_prj_num PK FK
+    N(6) asg_emp_id PK FK
+    N(1) asg_hours
+  }
+
+  EMPLOYEE ||--|| MANAGER : superclass -> subclass
+  PROJECT ||--|| INTERNAL_PROJECT : superclass -> subclass
+  PROJECT ||--|| EXTERNAL_PROJECT : superclass -> subclass
+  MANAGER ||--o{ INTERNAL_PROJECT : manages
+  VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
+  INTERNAL_PROJECT ||--o{ ASSIGNMENT : has
+  EMPLOYEE ||--o{ ASSIGNMENT : assigned_to
     </pre>
   </body>
 </html>

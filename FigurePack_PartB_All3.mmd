@@ -10,9 +10,9 @@ flowchart TB
     F1_VEN[VENDOR]
     F1_ASG[ASSIGNMENT]
 
-    F1_EMP -->|Subtype arc| F1_MGR
-    F1_PRJ -->|Subtype arc| F1_IP
-    F1_PRJ -->|Subtype arc| F1_EP
+    F1_EMP -->|superclass -> subclass| F1_MGR
+    F1_PRJ -->|superclass -> subclass| F1_IP
+    F1_PRJ -->|superclass -> subclass| F1_EP
     F1_MGR -->|manages| F1_IP
     F1_VEN -->|hired_for| F1_EP
     F1_IP -->|assigned_on| F1_ASG

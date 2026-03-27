@@ -7,9 +7,9 @@ flowchart LR
     VEN["VENDOR"]
     ASG["ASSIGNMENT"]
 
-    EMP -->|Subtype arc| MGR
-    PRJ -->|Subtype arc| IPRJ
-    PRJ -->|Subtype arc| XPRJ
+    EMP -->|superclass -> subclass| MGR
+    PRJ -->|superclass -> subclass| IPRJ
+    PRJ -->|superclass -> subclass| XPRJ
     MGR -->|manages| IPRJ
     VEN -->|hired_for| XPRJ
     IPRJ -->|assigned_on| ASG

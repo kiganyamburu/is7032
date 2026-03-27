@@ -7,8 +7,8 @@ flowchart TB
   F["VENDOR: ven_name -> ven_street, ven_city, ven_state, ven_zip, ven_first, ven_middle, ven_last"]
   G["ASSIGNMENT: (asg_int_prj_num, asg_emp_id) -> asg_hours"]
 
-  B -. subtype of employee .-> A
-  D -. project subtype .-> C
-  E -. project subtype .-> C
+  B -. subclass of employee .-> A
+  D -. project subclass .-> C
+  E -. project subclass .-> C
   D -. manager ref .-> B
   E -. vendor ref .-> F
