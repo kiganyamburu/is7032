@@ -141,9 +141,7 @@ EXECUTE FUNCTION fn_assign_manager_to_internal_project();
 SECTION 2: SCREENSHOT OF REFRESHED TABLE LIST
 =====================================================================
 
-Instruction: Insert screenshot here from PostgreSQL/Oracle showing the refreshed list of created tables.
-
-[PASTE SCREENSHOT #1 HERE]
+Evidence provided: screenshot1.png showing refreshed PostgreSQL table list (7 tables: assignment, employee, external_project, internal_project, manager, project, vendor).
 
 =====================================================================
 SECTION 3: INSERT 5+ RECORDS AND SHOW SELECT * RESULTS
@@ -188,9 +186,7 @@ SELECT *
 FROM assignment
 ORDER BY asg_int_prj_num, asg_emp_id;
 
-Instruction: Insert screenshot here showing SELECT * results.
-
-[PASTE SCREENSHOT #2 HERE]
+Evidence provided: Screenshot2.png showing SELECT * output for EMPLOYEE with 5 rows.
 
 =====================================================================
 SECTION 4: HOW TO ENSURE MANAGER IS ASSIGNED TO INTERNAL PROJECT
@@ -220,6 +216,26 @@ SEMANTIC INTEGRITY CONSTRAINTS
 1) EMPLOYEE.emp_gender IN ('M','F','O')
 2) ASSIGNMENT.asg_hours > 1
 3) A manager will be assigned to any internal project that he/she also manages.
+
+
+=====================================================================
+ATTACHMENT MAP (CURRENT FILES IN THIS WORKSPACE)
+=====================================================================
+
+Logical model validation images (Part B):
+- Section 1 (Directed-Arc): img2.37.jpeg
+- Section 2 (Dependency Diagrams): img3.jpeg
+- Section 3 (Information-Preserving Logical Model): img4.jpeg
+- Source ER/context image (optional reference): img1.jpeg
+
+Preferred high-quality exports already available:
+- Figure1_Validated_DirectedArc_HD.png
+- Figure2_Validated_DependencyDiagrams_HD.png
+- Figure3_Validated_InformationPreservingModel_HD.png
+
+Part A screenshot evidence files:
+- screenshot1.png (refreshed table list)
+- Screenshot2.png (SELECT * output)
 
 
 END OF SUBMISSION

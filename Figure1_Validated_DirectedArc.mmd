@@ -1,16 +1,15 @@
-flowchart LR
-    EMP["EMPLOYEE"]
-    MGR["MANAGER"]
-    PRJ["PROJECT"]
-    IPRJ["INTERNAL_PROJECT"]
-    XPRJ["EXTERNAL_PROJECT"]
-    VEN["VENDOR"]
-    ASG["ASSIGNMENT"]
+flowchart TB
+    L1["L1: EMPLOYEE<br/>Emp_id | [Emp_first*] | Emp_middle | Emp_last* | Emp_gender* | Emp_salary | Emp_int_prj_num"]
+    L2["L2: MANAGER<br/>Mng_emp_id | Mng_bonus*"]
+    L3["L3: VENDOR<br/>Ven_name | [Ven_street | Ven_city | Ven_state | Ven_zip] | [Ven_first* | Ven_middle | Ven_last*]"]
+    L4["L4: PROJECT<br/>Prj_num | Prj_desc* | Prj_startdt | Prj_budget* | Prj_actcst"]
+    L5["L5: EXTERNAL<br/>Ext_prj_num | Ext_rating | Ext_ven_name"]
+    L6["L6: INTERNAL<br/>Int_prj_num | Int_contcost | Int_mng_emp_id | Int_emp_id"]
 
-    EMP -->|superclass -> subclass| MGR
-    PRJ -->|superclass -> subclass| IPRJ
-    PRJ -->|superclass -> subclass| XPRJ
-    MGR -->|manages| IPRJ
-    VEN -->|hired_for| XPRJ
-    IPRJ -->|assigned_on| ASG
-    EMP -->|assigned_employee| ASG
+    L2 -->|Mng_emp_id -> Emp_id| L1
+    L5 -->|Ext_prj_num -> Prj_num| L4
+    L6 -->|Int_prj_num -> Prj_num| L4
+    L5 -->|Ext_ven_name -> Ven_name| L3
+    L6 -->|Int_mng_emp_id -> Mng_emp_id| L2
+    L6 -->|Int_emp_id -> Emp_id| L1
+    L1 -->|Emp_int_prj_num -> Int_prj_num| L6

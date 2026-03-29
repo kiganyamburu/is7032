@@ -150,9 +150,7 @@ EXECUTE FUNCTION fn_assign_manager_to_internal_project();
 SECTION 2: SCREENSHOT OF REFRESHED TABLE LIST
 =====================================================================
 
-Instruction: Insert screenshot here from PostgreSQL/Oracle showing the refreshed list of created tables.
-
-[PASTE SCREENSHOT #1 HERE]
+Evidence provided: screenshot1.png showing refreshed PostgreSQL table list (7 tables: assignment, employee, external_project, internal_project, manager, project, vendor).
 
 =====================================================================
 SECTION 3: INSERT 5+ RECORDS AND SHOW SELECT * RESULTS
@@ -197,9 +195,7 @@ SELECT *
 FROM assignment
 ORDER BY asg_int_prj_num, asg_emp_id;
 
-Instruction: Insert screenshot here showing SELECT * results.
-
-[PASTE SCREENSHOT #2 HERE]
+Evidence provided: Screenshot2.png showing SELECT * output for EMPLOYEE with 5 rows.
 
 =====================================================================
 SECTION 4: HOW TO ENSURE MANAGER IS ASSIGNED TO INTERNAL PROJECT
@@ -443,6 +439,21 @@ APPENDIX: WHAT TO ATTACH IN YOUR SUBMISSION
 - Screenshot/image of dependency diagrams for validated model.
 - Final validated information-preserving logical model diagram.
 - (Optional, if instructor allows) SQL DDL implementation script as supporting artifact.
+
+Current image file mapping in this workspace:
+- Directed-arc model: img2.37.jpeg
+- Dependency diagrams: img3.jpeg
+- Information-preserving model: img4.jpeg
+- Source ER/context image (optional): img1.jpeg
+
+Preferred high-quality alternatives:
+- Figure1_Validated_DirectedArc_HD.png
+- Figure2_Validated_DependencyDiagrams_HD.png
+- Figure3_Validated_InformationPreservingModel_HD.png
+
+Part A screenshot evidence files:
+- screenshot1.png (refreshed table list)
+- Screenshot2.png (SELECT * output)
 
 End of deliverable.
 

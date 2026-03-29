@@ -1,61 +1,17 @@
-erDiagram
-    EMPLOYEE {
-        N(6) emp_id PK
-        A(20) emp_first
-        A(20) emp_middle
-        A(20) emp_last
-        A(1) emp_gender
-        N(2) emp_salary
-    }
+flowchart TB
+  L1["L1: EMPLOYEE<br/>Emp_id (N,9) | [Emp_first*] (A,20) | Emp_middle (A,20) | Emp_last* (A,20) | Emp_gender* (A,1) | Emp_salary (N,6) | Emp_int_prj_num (N,9)"]
+  L2["L2: MANAGER<br/>Mng_emp_id (N,9) | Mng_bonus* (N,6)"]
+  L3["L3: VENDOR<br/>Ven_name (X,60) | [Ven_street] (X,50) | Ven_city (A,20) | Ven_state (A,2) | Ven_zip (N,5) | [Ven_first*] (A,20) | Ven_middle (A,20) | Ven_last* (A,20)"]
+  L4["L4: PROJECT<br/>Prj_num (N,9) | Prj_desc* (X,120) | Prj_startdt (Dt,8) | Prj_budget* (N,8,2) | Prj_actcost (N,8,2)"]
+  L5["L5: EXTERNAL<br/>Ext_prj_num (N,9) | Ext_rating (A,1) | Ext_ven_name (X,60)"]
+  L6["L6: INTERNAL<br/>Int_prj_num (N,9) | Int_contcost (N,8,2) | Int_mng_emp_id (N,9) | Int_emp_id (N,9)"]
 
-    MANAGER {
-        N(6) mng_emp_id PK
-        N(2) mng_bonus
-    }
+  L2 -->|0 L1 1| L1
+  L5 -->|1 L4 2| L4
+  L6 -->|1 L4 2| L4
+  L5 -->|0 L3 n| L3
+  L6 -->|0 L2 3| L2
+  L1 -->|1 L6 n| L6
 
-    PROJECT {
-        N(6) prj_num PK
-        A(40) prj_desc
-        A(10) prj_startdt
-        N(2) prj_budget
-        N(2) prj_actcst
-    }
-
-    INTERNAL_PROJECT {
-        N(6) int_prj_num PK
-        A(1) int_rating
-        N(6) int_mng_emp_id
-    }
-
-    EXTERNAL_PROJECT {
-        N(6) ext_prj_num PK
-        N(2) ext_contcost
-        A(20) ext_ven_name
-    }
-
-    VENDOR {
-        A(20) ven_name PK
-        A(40) ven_street
-        A(20) ven_city
-        A(2) ven_state
-        A(5) ven_zip
-        A(20) ven_first
-        A(20) ven_middle
-        A(20) ven_last
-    }
-
-    ASSIGNMENT {
-        N(6) asg_int_prj_num PK
-        N(6) asg_emp_id PK
-        N(1) asg_hours
-    }
-
-    EMPLOYEE ||--|| MANAGER : "superclass -> subclass"
-    PROJECT ||--|| INTERNAL_PROJECT : "superclass -> subclass"
-    PROJECT ||--|| EXTERNAL_PROJECT : "superclass -> subclass"
-
-    MANAGER ||--o{ INTERNAL_PROJECT : "manages"
-    VENDOR ||--o{ EXTERNAL_PROJECT : "hired_for"
-
-    INTERNAL_PROJECT ||--o{ ASSIGNMENT : "has"
-    EMPLOYEE ||--o{ ASSIGNMENT : "assigned_to"
+  L2 -. 1 d2 .- L1
+  L5 -. 1 d1 .- L6

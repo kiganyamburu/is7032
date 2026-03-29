@@ -22,97 +22,130 @@
   <body>
     <h2>Figure 1: Validated Directed-Arc Model</h2>
     <pre class="mermaid">
-flowchart LR
-    EMP[EMPLOYEE]
-    MGR[MANAGER]
-    PRJ[PROJECT]
-    IPRJ[INTERNAL_PROJECT]
-    XPRJ[EXTERNAL_PROJECT]
-    VEN[VENDOR]
-    ASG[ASSIGNMENT]
+flowchart TB
+  L1["L1: EMPLOYEE<br/>Emp_id | [Emp_first*] | Emp_middle | Emp_last* | Emp_gender* | Emp_salary | Emp_int_prj_num"]
+  L2["L2: MANAGER<br/>Mng_emp_id | Mng_bonus*"]
+  L3["L3: VENDOR<br/>Ven_name | [Ven_street | Ven_city | Ven_state | Ven_zip] | [Ven_first* | Ven_middle | Ven_last*]"]
+  L4["L4: PROJECT<br/>Prj_num | Prj_desc* | Prj_startdt | Prj_budget* | Prj_actcst"]
+  L5["L5: EXTERNAL<br/>Ext_prj_num | Ext_rating | Ext_ven_name"]
+  L6["L6: INTERNAL<br/>Int_prj_num | Int_contcost | Int_mng_emp_id | Int_emp_id"]
 
-    EMP --> MGR
-    PRJ --> IPRJ
-    PRJ --> XPRJ
-    MGR --> IPRJ
-    VEN --> XPRJ
-    IPRJ --> ASG
-    EMP --> ASG
+  L2 -->|Mng_emp_id -> Emp_id| L1
+  L5 -->|Ext_prj_num -> Prj_num| L4
+  L6 -->|Int_prj_num -> Prj_num| L4
+  L5 -->|Ext_ven_name -> Ven_name| L3
+  L6 -->|Int_mng_emp_id -> Mng_emp_id| L2
+  L6 -->|Int_emp_id -> Emp_id| L1
+  L1 -->|Emp_int_prj_num -> Int_prj_num| L6
     </pre>
 
     <h2>Figure 2: Validated Dependency Diagrams</h2>
     <pre class="mermaid">
-flowchart LR
-    A[EMPLOYEE: emp_id -> non-keys]
-    B[MANAGER: mng_emp_id -> mng_bonus]
-    C[PROJECT: prj_num -> non-keys]
-    D[INTERNAL_PROJECT: int_prj_num -> int_rating, int_mng_emp_id]
-    E[EXTERNAL_PROJECT: ext_prj_num -> ext_contcost, ext_ven_name]
-    F[VENDOR: ven_name -> non-keys]
-    G[ASSIGNMENT: (asg_int_prj_num, asg_emp_id) -> asg_hours]
+flowchart TB
+  subgraph L1["L1: EMPLOYEE"]
+    direction LR
+    L1K["Emp_id"]
+    L1A1["[Emp_first*]"]
+    L1A2["Emp_middle"]
+    L1A3["Emp_last*"]
+    L1A4["Emp_gender*"]
+    L1A5["Emp_salary"]
+    L1A6["Emp_int_prj_num"]
+    L1K --> L1A1
+    L1K --> L1A2
+    L1K --> L1A3
+    L1K --> L1A4
+    L1K --> L1A5
+    L1K --> L1A6
+  end
+
+  subgraph L2["L2: MANAGER"]
+    direction LR
+    L2K["Mng_emp_id"]
+    L2A1["Mng_bonus*"]
+    L2K --> L2A1
+  end
+
+  subgraph L3["L3: VENDOR"]
+    direction LR
+    L3K["Ven_name"]
+    L3A1["[Ven_street]"]
+    L3A2["Ven_city"]
+    L3A3["Ven_state"]
+    L3A4["Ven_zip"]
+    L3A5["[Ven_first*]"]
+    L3A6["Ven_middle"]
+    L3A7["Ven_last*"]
+    L3K --> L3A1
+    L3K --> L3A2
+    L3K --> L3A3
+    L3K --> L3A4
+    L3K --> L3A5
+    L3K --> L3A6
+    L3K --> L3A7
+  end
+
+  subgraph L4["L4: PROJECT"]
+    direction LR
+    L4K["Prj_num"]
+    L4A1["Prj_desc*"]
+    L4A2["Prj_startdt"]
+    L4A3["Prj_budget*"]
+    L4A4["Prj_actcst"]
+    L4K --> L4A1
+    L4K --> L4A2
+    L4K --> L4A3
+    L4K --> L4A4
+  end
+
+  subgraph L5["L5: EXTERNAL"]
+    direction LR
+    L5K["Ext_prj_num"]
+    L5A1["Ext_rating"]
+    L5A2["Ext_ven_name"]
+    L5K --> L5A1
+    L5K --> L5A2
+  end
+
+  subgraph L6["L6: INTERNAL"]
+    direction LR
+    L6K["Int_prj_num"]
+    L6A1["Int_contcost"]
+    L6A2["Int_mng_emp_id"]
+    L6A3["Int_emp_id"]
+    L6K --> L6A1
+    L6K --> L6A2
+    L6K --> L6A3
+  end
+
+  L2K -. fk .-> L1K
+  L5K -. fk .-> L4K
+  L6K -. fk .-> L4K
+  L5A2 -. fk .-> L3K
+  L6A2 -. fk .-> L2K
+  L6A3 -. fk .-> L1K
+  L1A6 -. fk .-> L6K
     </pre>
 
     <h2>Figure 3: Validated Information-Preserving Logical Model</h2>
     <pre class="mermaid">
-erDiagram
-  EMPLOYEE {
-    N(6) emp_id PK
-    A(20) emp_first
-    A(20) emp_middle
-    A(20) emp_last
-    A(1) emp_gender
-    N(2) emp_salary
-  }
+flowchart TB
+  L1["L1: EMPLOYEE<br/>Emp_id (N,9) | [Emp_first*] (A,20) | Emp_middle (A,20) | Emp_last* (A,20) | Emp_gender* (A,1) | Emp_salary (N,6) | Emp_int_prj_num (N,9)"]
+  L2["L2: MANAGER<br/>Mng_emp_id (N,9) | Mng_bonus* (N,6)"]
+  L3["L3: VENDOR<br/>Ven_name (X,60) | [Ven_street] (X,50) | Ven_city (A,20) | Ven_state (A,2) | Ven_zip (N,5) | [Ven_first*] (A,20) | Ven_middle (A,20) | Ven_last* (A,20)"]
+  L4["L4: PROJECT<br/>Prj_num (N,9) | Prj_desc* (X,120) | Prj_startdt (Dt,8) | Prj_budget* (N,8,2) | Prj_actcost (N,8,2)"]
+  L5["L5: EXTERNAL<br/>Ext_prj_num (N,9) | Ext_rating (A,1) | Ext_ven_name (X,60)"]
+  L6["L6: INTERNAL<br/>Int_prj_num (N,9) | Int_contcost (N,8,2) | Int_mng_emp_id (N,9) | Int_emp_id (N,9)"]
 
-  MANAGER {
-    N(6) mng_emp_id PK FK
-    N(2) mng_bonus
-  }
+  L2 -->|0 L1 1| L1
+  L5 -->|1 L4 2| L4
+  L6 -->|1 L4 2| L4
+  L5 -->|0 L3 n| L3
+  L6 -->|0 L2 3| L2
+  L1 -->|1 L6 n| L6
 
-  PROJECT {
-    N(6) prj_num PK
-    A(40) prj_desc
-    A(10) prj_startdt
-    N(2) prj_budget
-    N(2) prj_actcst
-  }
-
-  INTERNAL_PROJECT {
-    N(6) int_prj_num PK FK
-    A(1) int_rating
-    N(6) int_mng_emp_id FK
-  }
-
-  EXTERNAL_PROJECT {
-    N(6) ext_prj_num PK FK
-    N(2) ext_contcost
-    A(20) ext_ven_name FK
-  }
-
-  VENDOR {
-    A(20) ven_name PK
-    A(40) ven_street
-    A(20) ven_city
-    A(2) ven_state
-    A(5) ven_zip
-    A(20) ven_first
-    A(20) ven_middle
-    A(20) ven_last
-  }
-
-  ASSIGNMENT {
-    N(6) asg_int_prj_num PK FK
-    N(6) asg_emp_id PK FK
-    N(1) asg_hours
-  }
-
-  EMPLOYEE ||--|| MANAGER : superclass -> subclass
-  PROJECT ||--|| INTERNAL_PROJECT : superclass -> subclass
-  PROJECT ||--|| EXTERNAL_PROJECT : superclass -> subclass
-  MANAGER ||--o{ INTERNAL_PROJECT : manages
-  VENDOR ||--o{ EXTERNAL_PROJECT : hired_for
-  INTERNAL_PROJECT ||--o{ ASSIGNMENT : has
-  EMPLOYEE ||--o{ ASSIGNMENT : assigned_to
+  L2 -. 1 d2 .- L1
+  L5 -. 1 d1 .- L6
     </pre>
   </body>
 </html>

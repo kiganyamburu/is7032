@@ -22,48 +22,89 @@
     <h2>Figure 2: Validated Dependency Diagrams</h2>
     <pre class="mermaid">
 flowchart TB
-  subgraph EMPLOYEE
-    EPK[emp_id (PK)] --> E1[emp_first]
-    EPK --> E2[emp_middle]
-    EPK --> E3[emp_last]
-    EPK --> E4[emp_gender]
-    EPK --> E5[emp_salary]
+  subgraph L1["L1: EMPLOYEE"]
+    direction LR
+    L1K["Emp_id"]
+    L1A1["[Emp_first*]"]
+    L1A2["Emp_middle"]
+    L1A3["Emp_last*"]
+    L1A4["Emp_gender*"]
+    L1A5["Emp_salary"]
+    L1A6["Emp_int_prj_num"]
+    L1K --> L1A1
+    L1K --> L1A2
+    L1K --> L1A3
+    L1K --> L1A4
+    L1K --> L1A5
+    L1K --> L1A6
   end
 
-  subgraph MANAGER
-    MPK[mng_emp_id (PK)] --> M1[mng_bonus]
+  subgraph L2["L2: MANAGER"]
+    direction LR
+    L2K["Mng_emp_id"]
+    L2A1["Mng_bonus*"]
+    L2K --> L2A1
   end
 
-  subgraph PROJECT
-    PPK[prj_num (PK)] --> P1[prj_desc]
-    PPK --> P2[prj_startdt]
-    PPK --> P3[prj_budget]
-    PPK --> P4[prj_actcst]
+  subgraph L3["L3: VENDOR"]
+    direction LR
+    L3K["Ven_name"]
+    L3A1["[Ven_street]"]
+    L3A2["Ven_city"]
+    L3A3["Ven_state"]
+    L3A4["Ven_zip"]
+    L3A5["[Ven_first*]"]
+    L3A6["Ven_middle"]
+    L3A7["Ven_last*"]
+    L3K --> L3A1
+    L3K --> L3A2
+    L3K --> L3A3
+    L3K --> L3A4
+    L3K --> L3A5
+    L3K --> L3A6
+    L3K --> L3A7
   end
 
-  subgraph INTERNAL_PROJECT
-    IPK[int_prj_num (PK)] --> I1[int_rating]
-    IPK --> I2[int_mng_emp_id (FK)]
+  subgraph L4["L4: PROJECT"]
+    direction LR
+    L4K["Prj_num"]
+    L4A1["Prj_desc*"]
+    L4A2["Prj_startdt"]
+    L4A3["Prj_budget*"]
+    L4A4["Prj_actcst"]
+    L4K --> L4A1
+    L4K --> L4A2
+    L4K --> L4A3
+    L4K --> L4A4
   end
 
-  subgraph EXTERNAL_PROJECT
-    XPK[ext_prj_num (PK)] --> X1[ext_contcost]
-    XPK --> X2[ext_ven_name (FK)]
+  subgraph L5["L5: EXTERNAL"]
+    direction LR
+    L5K["Ext_prj_num"]
+    L5A1["Ext_rating"]
+    L5A2["Ext_ven_name"]
+    L5K --> L5A1
+    L5K --> L5A2
   end
 
-  subgraph VENDOR
-    VPK[ven_name (PK)] --> V1[ven_street]
-    VPK --> V2[ven_city]
-    VPK --> V3[ven_state]
-    VPK --> V4[ven_zip]
-    VPK --> V5[ven_first]
-    VPK --> V6[ven_middle]
-    VPK --> V7[ven_last]
+  subgraph L6["L6: INTERNAL"]
+    direction LR
+    L6K["Int_prj_num"]
+    L6A1["Int_contcost"]
+    L6A2["Int_mng_emp_id"]
+    L6A3["Int_emp_id"]
+    L6K --> L6A1
+    L6K --> L6A2
+    L6K --> L6A3
   end
 
-  subgraph ASSIGNMENT
-    AKEY[(asg_int_prj_num, asg_emp_id) PK] --> A1[asg_hours]
-  end
+  L2K -. fk .-> L1K
+  L5K -. fk .-> L4K
+  L6K -. fk .-> L4K
+  L5A2 -. fk .-> L3K
+  L6A2 -. fk .-> L2K
+  L6A3 -. fk .-> L1K
+  L1A6 -. fk .-> L6K
     </pre>
   </body>
 </html>

@@ -8,28 +8,28 @@ Date: ______________________________
 PART A — DDL/SQL ASSIGNMENT (IS7032_A4.doc style)
 ============================================================
 
-[ ] 1) SQL DDL file included
+[x] 1) SQL DDL file included
     - File: IS7032_A4_solution_postgres.sql
 
-[ ] 2) Section 1 complete
+[x] 2) Section 1 complete
     - CREATE TABLE statements for all required tables
     - PK/FK constraints included
     - Integrity constraints included
     - Any model alterations noted in comments
 
-[ ] 3) Section 2 screenshot included
+[x] 3) Section 2 screenshot included
     - Screenshot shows refreshed table list in PostgreSQL/Oracle
     - Tables visible after running SQL
 
-[ ] 4) Section 3 complete
+[x] 4) Section 3 complete
     - At least 5 records inserted into one table
     - Screenshot of SELECT * FROM chosen table included
 
-[ ] 5) Section 4 complete
+[x] 5) Section 4 complete
     - Short explanation of how manager assignment rule is enforced
     - Rule: manager assigned to internal project they manage
 
-[ ] 6) Semantic constraints present
+[x] 6) Semantic constraints present
     - EMPLOYEE.Emp_Gender IN ('M','F','O')
     - ASSIGNMENT.Asg_hours > 1
 
@@ -38,22 +38,22 @@ PART A — DDL/SQL ASSIGNMENT (IS7032_A4.doc style)
 PART B — LOGICAL MODEL VALIDATION ASSIGNMENT (instructions.txt style)
 ============================================================
 
-[ ] 1) Written deliverable included
+[x] 1) Written deliverable included
     - File: IS7032_instructions_deliverable.txt
 
-[ ] 2) Section 1 complete
+[x] 2) Section 1 complete
     - Validated directed-arc model
     - Logical design issues identified
     - Assumptions listed in semantic constraints
 
-[ ] 3) Section 2 complete
+[x] 3) Section 2 complete
     - Dependency diagrams for validated model
     - Problems identified and corrected
 
-[ ] 4) Section 3 complete
+[x] 4) Section 3 complete
     - Validated information-preserving logical model provided
 
-[ ] 5) Semantic integrity constraints included
+[x] 5) Semantic integrity constraints included
     - Manager assigned to internal project they manage
     - Gender constraint
     - Hours constraint
@@ -63,11 +63,20 @@ PART B — LOGICAL MODEL VALIDATION ASSIGNMENT (instructions.txt style)
 FILES TO ATTACH (SAFE FULL PACK)
 ============================================================
 
-[ ] IS7032_A4_solution_postgres.sql
-[ ] IS7032_instructions_deliverable.txt
-[ ] Screenshot_1_tables_list.(png/jpg)
-[ ] Screenshot_2_select_results.(png/jpg)
-[ ] Any model/diagram images used in your logical-model deliverable
+[x] IS7032_A4_solution_postgres.sql
+[x] IS7032_instructions_deliverable.txt
+[x] screenshot1.png (tables list screenshot)
+[x] Screenshot2.png (SELECT * EMPLOYEE rows screenshot)
+[x] Any model/diagram images used in your logical-model deliverable
+
+Detected model/diagram image files currently in workspace:
+- img2.37.jpeg (Directed-arc)
+- img3.jpeg (Dependency diagrams)
+- img4.jpeg (Information-preserving model)
+- img1.jpeg (ER/context image)
+- Figure1_Validated_DirectedArc_HD.png
+- Figure2_Validated_DependencyDiagrams_HD.png
+- Figure3_Validated_InformationPreservingModel_HD.png
 
 
 ============================================================
@@ -84,3 +93,9 @@ FINAL QUALITY CHECK BEFORE SUBMIT
 Notes:
 - The provided materials do not include an explicit submission portal, due date, or required upload format.
 - If your instructor/LMS page has additional rules, follow those first.
+
+Remaining manual checks:
+- Fill Student Name / ID / Course details in submission document(s).
+- Confirm screenshot readability at final export scale.
+- Run SQL once more to confirm zero errors in your local DB session.
+- Verify uploaded files open correctly in LMS/portal.

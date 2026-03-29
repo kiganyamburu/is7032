@@ -1,14 +1,84 @@
 flowchart TB
-  A["EMPLOYEE: emp_id -> emp_first, emp_middle, emp_last, emp_gender, emp_salary"]
-  B["MANAGER: mng_emp_id -> mng_bonus"]
-  C["PROJECT: prj_num -> prj_desc, prj_startdt, prj_budget, prj_actcst"]
-  D["INTERNAL_PROJECT: int_prj_num -> int_rating, int_mng_emp_id"]
-  E["EXTERNAL_PROJECT: ext_prj_num -> ext_contcost, ext_ven_name"]
-  F["VENDOR: ven_name -> ven_street, ven_city, ven_state, ven_zip, ven_first, ven_middle, ven_last"]
-  G["ASSIGNMENT: (asg_int_prj_num, asg_emp_id) -> asg_hours"]
+  subgraph L1["L1: EMPLOYEE"]
+    direction LR
+    L1K["Emp_id"]
+    L1A1["[Emp_first*]"]
+    L1A2["Emp_middle"]
+    L1A3["Emp_last*"]
+    L1A4["Emp_gender*"]
+    L1A5["Emp_salary"]
+    L1A6["Emp_int_prj_num"]
+    L1K --> L1A1
+    L1K --> L1A2
+    L1K --> L1A3
+    L1K --> L1A4
+    L1K --> L1A5
+    L1K --> L1A6
+  end
 
-  B -. subclass of employee .-> A
-  D -. project subclass .-> C
-  E -. project subclass .-> C
-  D -. manager ref .-> B
-  E -. vendor ref .-> F
+  subgraph L2["L2: MANAGER"]
+    direction LR
+    L2K["Mng_emp_id"]
+    L2A1["Mng_bonus*"]
+    L2K --> L2A1
+  end
+
+  subgraph L3["L3: VENDOR"]
+    direction LR
+    L3K["Ven_name"]
+    L3A1["[Ven_street]"]
+    L3A2["Ven_city"]
+    L3A3["Ven_state"]
+    L3A4["Ven_zip"]
+    L3A5["[Ven_first*]"]
+    L3A6["Ven_middle"]
+    L3A7["Ven_last*"]
+    L3K --> L3A1
+    L3K --> L3A2
+    L3K --> L3A3
+    L3K --> L3A4
+    L3K --> L3A5
+    L3K --> L3A6
+    L3K --> L3A7
+  end
+
+  subgraph L4["L4: PROJECT"]
+    direction LR
+    L4K["Prj_num"]
+    L4A1["Prj_desc*"]
+    L4A2["Prj_startdt"]
+    L4A3["Prj_budget*"]
+    L4A4["Prj_actcst"]
+    L4K --> L4A1
+    L4K --> L4A2
+    L4K --> L4A3
+    L4K --> L4A4
+  end
+
+  subgraph L5["L5: EXTERNAL"]
+    direction LR
+    L5K["Ext_prj_num"]
+    L5A1["Ext_rating"]
+    L5A2["Ext_ven_name"]
+    L5K --> L5A1
+    L5K --> L5A2
+  end
+
+  subgraph L6["L6: INTERNAL"]
+    direction LR
+    L6K["Int_prj_num"]
+    L6A1["Int_contcost"]
+    L6A2["Int_mng_emp_id"]
+    L6A3["Int_emp_id"]
+    L6K --> L6A1
+    L6K --> L6A2
+    L6K --> L6A3
+  end
+
+  L2K -. fk .-> L1K
+  L5K -. fk .-> L4K
+  L6K -. fk .-> L4K
+  L5A2 -. fk .-> L3K
+  L6A2 -. fk .-> L2K
+  L6A3 -. fk .-> L1K
+  L1A6 -. fk .-> L6K
